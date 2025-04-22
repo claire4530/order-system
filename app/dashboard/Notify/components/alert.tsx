@@ -35,7 +35,7 @@ async function editState(id: number, state: string, stateButton: string): Promis
 const Alert : React.FC<Area> = ({id}) => {
     return (
         <AlertDialog>
-            <AlertDialogTrigger>
+            <AlertDialogTrigger asChild>
                 <Button variant="link" className=" text-red-500" >
                     <ExclamationCircleIcon className="mr-2 h-6 w-6 text-red-500" />
                     前往處理

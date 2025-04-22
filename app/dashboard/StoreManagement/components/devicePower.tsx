@@ -116,7 +116,7 @@ export function DevicePowerDay() {
             </div>
             <div className="flex flex-grow justify-end ">
                 <Dialog>
-                    <DialogTrigger>
+                    <DialogTrigger asChild>
                         <Button variant="outline">查看更多</Button>
                     </DialogTrigger>
                     <DialogContent>
@@ -237,7 +237,7 @@ export function DevicePowerMonth() {
             </div>
             <div className="flex flex-grow justify-end ">
                 <Dialog>
-                    <DialogTrigger>
+                    <DialogTrigger asChild>
                         <Button variant="outline">查看更多</Button>
                     </DialogTrigger>
                     <DialogContent>
@@ -375,7 +375,7 @@ export function DevicePowerYear() {
             </div>
             <div className="flex flex-grow justify-end ">
                 <Dialog>
-                    <DialogTrigger>
+                    <DialogTrigger asChild>
                         <Button variant="outline">查看更多</Button>
                     </DialogTrigger>
                     <DialogContent>

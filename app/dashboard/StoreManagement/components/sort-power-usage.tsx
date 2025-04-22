@@ -118,7 +118,7 @@ export function RecentPowerDay() {
             <div className="flex flex-grow justify-end ">
                 {dataDay.length > 0 ? (
                     <Dialog>
-                        <DialogTrigger>
+                        <DialogTrigger asChild>
                             <Button variant="outline">查看更多</Button>
                         </DialogTrigger>
                         <DialogContent>
@@ -227,7 +227,7 @@ export function RecentPowerMonth() {
             <div className="flex flex-grow justify-end ">
                 {dataMonth.length > 0 ? (
                     <Dialog>
-                        <DialogTrigger>
+                        <DialogTrigger asChild>
                             <Button variant="outline">查看更多</Button>
                         </DialogTrigger>
                         <DialogContent>
@@ -328,7 +328,7 @@ export function RecentPowerYear() {
             <div className="flex flex-grow justify-end ">
                 {dataYear.length > 0 ? (
                 <Dialog>
-                    <DialogTrigger>
+                    <DialogTrigger asChild>
                         <Button variant="outline">查看更多</Button>
                     </DialogTrigger>
                     <DialogContent>

@@ -31,13 +31,13 @@ const Dropdown : React.FC<ChangeDropdownProps> = ({
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="ml-auto">
+                <Button variant="outline" className="ml-auto bg-[#969363] text-white font-semibold hover:text-white hover:bg-[#706E4A]">
                     狀態選擇
                     <ChevronDown className="ml-2 h-4 w-4" />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
-                <DropdownMenuSeparator />
+            <DropdownMenuContent className="w-56 bg-[#969363] text-white font-semibold hover:text-white hover:bg-[#706E4A]">
+                {/* <DropdownMenuSeparator /> */}
                 <DropdownMenuCheckboxItem checked={showStatusBar} onCheckedChange={setShowStatusBar}>
                     已處理
                 </DropdownMenuCheckboxItem>

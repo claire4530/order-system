@@ -49,7 +49,7 @@ const UpdateTable = ({ initialAreas = [] }: { initialAreas: Area[] }) => {
                         <TabsTrigger
                             key={area.id}
                             value={`area-${area.id}`}
-                            className="h-[50px] min-w-[12rem]"
+                            className="h-[50px] min-w-[8rem]"
                         >
                             <div className='grid grid-cols-6 w-full'>
                                 <div className="flex justify-start col-span-5 font-medium text-base truncate ...">

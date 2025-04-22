@@ -1,6 +1,9 @@
 
 import * as React from 'react'
 import UpdateTable from './components/update-table'
+import {
+    BellAlertIcon,
+} from '@heroicons/react/24/outline'
 
 export type NotifyProps = {
     id: number
@@ -26,7 +29,16 @@ const App: React.FC = async () => {
 
     return (
         <div className="w-full">
-            <UpdateTable initialAreas={initialAreas} />
+            <div className='bg-white rounded-3xl p-8'>
+                <div className='flex items-center px-4 gap-2'>
+                    <BellAlertIcon className="h-8 w-8 font-semibold" />
+                    <h2 className="text-3xl font-bold tracking-tight flex-grow p-3">
+                        通知
+                    </h2>
+                </div>
+                <div className="border-b p-3"></div>
+                <UpdateTable initialAreas={initialAreas} />
+            </div>
         </div>
     )
 }

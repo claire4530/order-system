@@ -1,5 +1,5 @@
 'use client'
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Dialog,
     DialogContent,
@@ -17,20 +17,17 @@ import {
     AlertDialogFooter,
     AlertDialogTitle,
     AlertDialogTrigger,
-  } from "@/components/ui/alert-dialog"
+} from "@/components/ui/alert-dialog"
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { TriangleAlert, SquareCheck } from 'lucide-react'
 import { PencilIcon } from '@heroicons/react/24/outline'
 
 interface UserChangeProps {
-    onUpdate: (storeName: string, account: string, password: string) => void;
-}
-
-interface Business {
-    storeName: string
-    account: string
-    password: string
+    initialStoreName: string
+    initialAccount: string
+    initialPassword: string
+    onUpdate: (storeName: string, account: string, password: string) => void
 }
 
 async function editUser(storeName:string, account: string, password: string): Promise<void> {
@@ -49,36 +46,31 @@ async function editUser(storeName:string, account: string, password: string): Pr
     }
 }
 
-export const UserChange: React.FC<UserChangeProps> = ({ onUpdate }) => {
-    const [areaName, setAreaName] = useState("")
-    const [areaAccount, setareaAccount] = useState("")
-    const [areaPassword, setAreaPassword] = useState("")
+export const UserChange: React.FC<UserChangeProps> = ({
+    initialStoreName,
+    initialAccount,
+    initialPassword,
+    onUpdate
+}) => {
+    const [areaName, setAreaName] = useState(initialStoreName)
+    const [areaAccount, setAreaAccount] = useState(initialAccount)
+    const [areaPassword, setAreaPassword] = useState(initialPassword)
     const [errorMessage, setErrorMessage] = useState<string | null>(null)
     const [successMessage, setSuccessMessage] = useState<string | null>(null)
-    const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL || ''
 
-    const fetchData = async () => {
-        try {
-            const response = await fetch(`${apiUrl}/api/business`)
-            const result: Business[] = await response.json()
-            if (result.length > 0) {
-                const { storeName, account, password } = result[0] // 假設只有一組資料
-                setAreaName(storeName)
-                setareaAccount(account)
-                setAreaPassword(password)
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error)
-            setErrorMessage('Failed to fetch data')
-        }
-    }
+    // 使用 useEffect 监听 props 的变化来更新 state
+    useEffect(() => {
+        setAreaName(initialStoreName)
+        setAreaAccount(initialAccount)
+        setAreaPassword(initialPassword)
+    }, [initialStoreName, initialAccount, initialPassword])
 
     const handleAreaNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setAreaName(e.target.value)
     }
 
     const handleAreaAccountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setareaAccount(e.target.value)
+        setAreaAccount(e.target.value)
     }
 
     const handleAreaPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,27 +89,17 @@ export const UserChange: React.FC<UserChangeProps> = ({ onUpdate }) => {
             try {
                 await editUser(areaName, areaAccount, areaPassword)
                 setSuccessMessage("修改成功")
-                onUpdate(areaName, areaAccount, areaPassword);
+                onUpdate(areaName, areaAccount, areaPassword)
             } catch {
                 setErrorMessage("修改失敗，請稍後再試")
             }
         }
     }
 
-    const returnToPrevious = () => {
-        setSuccessMessage("")
-        setErrorMessage("")
-        fetchData() // 返回原始数据
-    }
-
-    useEffect(() => {
-        fetchData()
-    }, [apiUrl])
-
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="ghost" className="rounded-full" onClick={returnToPrevious}>
+                <Button variant="ghost" className="rounded-full">
                     <PencilIcon className="h-6 w-6" />
                 </Button>
             </DialogTrigger>
@@ -160,7 +142,7 @@ export const UserChange: React.FC<UserChangeProps> = ({ onUpdate }) => {
                         {successMessage && <div className="text-green-600 flex gap-2 mt-2"><SquareCheck /> {successMessage}</div>}
                     </div>
                     <AlertDialog>
-                        <AlertDialogTrigger>
+                        <AlertDialogTrigger asChild>
                             <Button type="submit" className="w-30">儲存</Button>
                         </AlertDialogTrigger>
                         <AlertDialogContent>

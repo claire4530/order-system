@@ -1,11 +1,12 @@
 'use client'
 import React, { useState } from 'react'
 import Update from "./components/update"
-function YourComponent() {
+
+export function YourComponent() {
 
     return (
         <div>
-            <Update />
+            <Update/>
         </div>
     )
 }

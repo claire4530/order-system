@@ -1,5 +1,4 @@
 'use client'
-
 import {
     Form as FormComponent,
     FormControl,
@@ -16,9 +15,6 @@ import { Input } from '@/components/ui/input'
 import submitForm from './actions'
 import { useState } from 'react'
 import { TriangleAlert, SquareCheck } from 'lucide-react'
-import { Textarea } from '@/components/ui/textarea'
-import { Switch } from '@/components/ui/switch'
-import DateTime from './date-time'
 import DateTimeReadOnly from './date-time-read-only'
 
 export const schema = z.object({
@@ -130,31 +126,7 @@ const FormMenu = ({ tableNumber }: FormMenuProps) => {
                         <FormItem className="flex items-center gap-2 px-4 py-2 justify-between text-black rounded-md hover:bg-slate-100">
                             <FormLabel className='text-base font-semibold'>預約時間</FormLabel>
                                 <FormControl>
-                                    {/* <DateTime field={field} /> */}
                                     <DateTimeReadOnly field={field} />
-                                    {/* <DateTimePicker value={field.value} onChange={field.onChange} /> */}
-                                    {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <DemoContainer components={['DateTimePicker']}>
-                                            <DateTimePicker
-                                                label="With Time Clock"
-                                                
-                                                value={field.value ? dayjs(field.value) : null} // 確保有值時顯示
-                                                onChange={(newValue) => {
-                                                    // 確認 newValue 是 dayjs 對象並轉換為 Date
-                                                    if (newValue) {
-                                                        field.onChange(newValue.toDate());
-                                                    }
-                                                }}
-                                                className='w-60 z-50'
-                                                format="YYYY/MM/DD HH:mm" // 設置時間顯示的格式
-                                                viewRenderers={{
-                                                    hours: renderTimeViewClock,
-                                                    minutes: renderTimeViewClock,
-                                                    seconds: renderTimeViewClock,
-                                                }}
-                                                />
-                                        </DemoContainer>
-                                    </LocalizationProvider> */}
                                 </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -239,12 +211,12 @@ const FormMenu = ({ tableNumber }: FormMenuProps) => {
                         </FormItem>
                     )}
                 />
-                <div className='flex justify-between'>
+                <div className='flex justify-between px-4 py-2'>
                     <div className='ml-4'>
                         {errorMessage && <div className="text-red-500 flex gap-2 mt-2"><TriangleAlert />{errorMessage}</div>}
                         {successMessage && <div className="text-green-600 flex gap-2 mt-2"><SquareCheck /> {successMessage}</div>}
                     </div>
-                    <Button type="submit" className="w-30">儲存</Button>
+                    <Button type="submit" className="px-8">儲存</Button>
                 </div>
             </form>
         </FormComponent>

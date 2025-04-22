@@ -1,6 +1,9 @@
 import React from 'react'
 import AddAreas from './components/add-areas'
 import UpdateTable from './components/update-table'
+import {
+    BuildingStorefrontIcon,
+} from '@heroicons/react/24/outline'
 
 interface Item {
     id: number
@@ -29,8 +32,9 @@ const App: React.FC = async () => {
 
     return (
         <div className="gap-4 ">
-            <div className="border-b">
+            <div className='bg-white rounded-3xl p-8'>
                 <div className="flex h-16 items-center px-4 gap-4">
+                    <BuildingStorefrontIcon className="h-8 w-8 font-semibold" />
                     <h2 className="text-3xl font-bold tracking-tight flex-grow">
                         新增菜單
                     </h2>
@@ -38,9 +42,10 @@ const App: React.FC = async () => {
                         <AddAreas />
                     </div>
                 </div>
-            </div>
-            <div>
-                <UpdateTable initialAreas={initialAreas} />                 
+                <div className="border-b p-3"></div>
+                <div>
+                    <UpdateTable initialAreas={initialAreas} />                     
+                </div>
             </div>
         </div>
     )

@@ -1,70 +1,91 @@
-import { ReactNode } from 'react'
-import React, { useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react';
 import {
     Dialog,
     DialogContent,
     DialogDescription,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { Textarea } from '@/components/ui/textarea'
-import FormMenu from './form'
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 
-interface OrderDetailsProps {
-    children: ReactNode
-    tableNumber: string
-    remark: string
+interface RemarkProps {
+    children: ReactNode;
+    tableNumber: string;
 }
 
 interface Area {
-    tableNumber: string
-    remark: string
+    id: number;
+    name: string;
+    reserveTime: string;
+    people: number;
+    tableNumber: string;
+    phoneNumber: string;
+    remark: string;
 }
 
-const EditRemark: React.FC<OrderDetailsProps> = ({ children, tableNumber, remark }) => {
+const EditRemark: React.FC<RemarkProps> = ({ children, tableNumber }) => {
+    const formatDate = (dateString: string | number | Date) => {
+        return new Date(dateString).toLocaleString();
+    };
 
-    const [remarks, setRemark] = useState(remark)
+    const [cookerProps, setCookers] = useState<Area[]>([]);
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL || '';
 
-    const editremark = async (tableNumber: string, remark: string) => {
+    const fetchData = async () => {
         try {
-            const response = await fetch(`${apiUrl}/api/edit-remark`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ tableNumber, remark }),
-            });
+            const response = await fetch(`${apiUrl}/api/reserve`);
+            const result = await response.json();
+
+            // 過濾出符合該桌號的訂單
+            const filteredData = result.filter(
+                (item: { tableNumber: string }) => item.tableNumber === tableNumber
+            );
+
+            // 按照 reserveTime 排序，並選擇最新的預定
+            const sortedData = filteredData.sort(
+                (a: Area, b: Area) => new Date(b.reserveTime).getTime() - new Date(a.reserveTime).getTime()
+            );
+
+            setCookers(sortedData);
+            console.log('Sorted cookerProps:', sortedData);
         } catch (error) {
-            console.error('Error updating table state:', error);
+            console.error('Error fetching data:', error);
         }
     };
+
+    useEffect(() => {
+        fetchData(); // 初始加載數據
+    }, []);
 
     return (
         <Dialog>
             <DialogTrigger asChild>{children}</DialogTrigger>
-            <DialogContent className="sm:max-w-[full]">
-                <DialogHeader className=''>
-                    <DialogTitle></DialogTitle>
-                    {/* <DialogDescription>
-                        <Textarea
-                            placeholder='請輸入備註'
-                            value={remarks}
-                            onChange={(e) => setRemark(e.target.value)}
-                            className="rounded-md border border-gray-400 w-60"
-                        />
-                    </DialogDescription> */}
-                    <FormMenu tableNumber={tableNumber}/>
+            <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader className="space-y-6">
+                    <DialogTitle>預約詳情</DialogTitle>
+                    <DialogDescription className='px-2 text-base'>
+                        {cookerProps.length > 0 ? (
+                            // 顯示最新的預定詳情
+                            <div className="flex flex-col gap-4">
+                                <div>桌號: {tableNumber}</div>
+                                <div>預定人: {cookerProps[0].name}</div>
+                                <div>預約時間: {formatDate(cookerProps[0].reserveTime)}</div>
+                                <div>用餐人數: {cookerProps[0].people}人</div>
+                                <div>電話: {cookerProps[0].phoneNumber}</div>
+                                <div>備註: {cookerProps[0].remark}</div>
+                            </div>
+                        ) : (
+                            <p>沒有找到相關資料。</p>
+                        )}
+                    </DialogDescription>
                 </DialogHeader>
                 {/* <DialogFooter>
-                    <Button type="submit" onClick={() => editremark(tableNumber, remarks)}>送出備註</Button>
+                    <Button type="submit">修改訂單</Button>
                 </DialogFooter> */}
             </DialogContent>
         </Dialog>
-    )
-}
+    );
+};
 
-export default EditRemark
+export default EditRemark;

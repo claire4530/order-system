@@ -50,7 +50,7 @@ export const columns: ColumnDef<Area>[] = [
                     className=""
                     variant="ghost"
                     onClick={() =>
-                        column.toggleSorting(column.getIsSorted() === 'desc')
+                        column.toggleSorting(column.getIsSorted() === 'asc')
                     }
                 >
                     日期
@@ -88,7 +88,11 @@ export const columns: ColumnDef<Area>[] = [
             )
         },
         cell: ({ row }) => (
-            <div className="flex items-center ml-4">{row.getValue('tableNumber')}</div>
+            <div className="flex items-center ml-4">
+                {(row.getValue('tableNumber') as string).length > 10 
+                    ? (row.getValue('tableNumber') as string).slice(0, 10) + '...' 
+                    : row.getValue('tableNumber')}
+            </div>
         ),
     },
     {

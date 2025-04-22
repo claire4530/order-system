@@ -69,7 +69,7 @@ const Table: React.FC<Area> = ({
                             <Utensils />
                             {name}
                         </div>
-                        <div className="flex justify-end">
+                        <div className="flex gap-4 justify-end">
                             <AddMenuItems menu_id={id} />
                             <DeleteAreas name={name} />
                         </div>

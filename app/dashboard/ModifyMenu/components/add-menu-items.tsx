@@ -20,8 +20,8 @@ const AddMenuItems: React.FC<menuProps> = ({
 
     return (
         <Dialog>
-            <DialogTrigger>
-                <Button variant="outline" className="mr-2 border border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">
+            <DialogTrigger asChild>
+                <Button variant="outline" className="mr-2 bg-[#969363] text-white font-semibold hover:text-white hover:bg-[#706E4A]">
                     新增菜品
                 </Button>
             </DialogTrigger>

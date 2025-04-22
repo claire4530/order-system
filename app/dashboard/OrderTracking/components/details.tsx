@@ -58,7 +58,7 @@ const Details : React.FC<DetailsProps> = ({id}) => {
                 </Button>
             </DialogTrigger>
             <DialogContent className="w-[400px] h-[160px]">
-                <DialogHeader>
+                <DialogHeader className="grid gap-2">
                     <DialogTitle className="text-center">
                         用餐明細
                     </DialogTitle>
@@ -74,7 +74,7 @@ const Details : React.FC<DetailsProps> = ({id}) => {
                     {/* <AlertDialogAction onClick={() => editState( id, "處理中", "正在處理" ) }>
                         修改訂單
                     </AlertDialogAction> */}
-                    <Button>修改訂單</Button>
+                    {/* <Button>修改訂單</Button> */}
                 </DialogFooter>
             </DialogContent>
         </Dialog>

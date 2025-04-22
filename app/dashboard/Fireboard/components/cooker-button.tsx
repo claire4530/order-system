@@ -24,7 +24,7 @@ const CookerButton: React.FC<Cookers> = ({
 
     return (
         <Dialog>
-            <DialogTrigger>
+            <DialogTrigger asChild>
                 <Button variant="ghost" className="rounded-lg w-30 h-40 flex flex-col" >
                     <Image src={cookerImage} alt="電磁爐" width={100} />
                     <div className="pt-2 font-bold text-base">

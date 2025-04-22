@@ -34,8 +34,8 @@ const DeleteAreas: React.FC<Area> = ({name}) => {
 
     return (
         <AlertDialog>
-            <AlertDialogTrigger>
-                <Button variant="outline" className="border border-red-500 text-red-500 hover:bg-red-500 hover:text-white">
+            <AlertDialogTrigger asChild>
+                <Button variant="outline" className="bg-[#bf6c41] text-white font-semibold hover:bg-[#8d4a28] hover:text-white">
                     刪除分類
                 </Button>
             </AlertDialogTrigger>

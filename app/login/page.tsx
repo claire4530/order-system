@@ -2,7 +2,8 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import React, { useEffect, useState } from 'react'
-
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
+    
 interface PowerUsage {
     account: string
     password: string
@@ -21,7 +22,7 @@ export default function Page() {
             const result = await response.json();
 
             setPowerUsageData(result);
-
+            console.log('Data fetched:', result);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -34,41 +35,56 @@ export default function Page() {
             location.href = '/dashboard' //跳轉首頁
         } else {
             // 登入失敗
-            setError('Incorrect username or password')
+            setError('錯誤的帳號或密碼')
         }
     }
 
     useEffect(() => {
         fetchData();
-        const intervalId = setInterval(fetchData, 3000); // 每三秒抓取一次資料
+        // const intervalId = setInterval(fetchData, 3000); // 每三秒抓取一次資料
 
-        return () => clearInterval(intervalId); // 清除定時器
+        // return () => clearInterval(intervalId); // 清除定時器
     }, [apiUrl]);
 
     return (
-        <div className="flex min-h-screen flex-col items-center justify-center gap-4">
-            <h1 className="mb-6 text-3xl font-bold">Login</h1>
-            {error && <p className="mb-4 text-red-500">{error}</p>}
-            <Input
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="mb-4 rounded-md border border-gray-300 px-4 py-2 w-[200px]"
-            />
-            <Input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="mb-4 rounded-md border border-gray-300 px-4 py-2 w-[200px]"
-            />
-            <Button
-                onClick={handleLogin}
-                className="rounded-md bg-blue-500 px-6 py-3 text-white hover:bg-blue-600"
-            >
-                Login
-            </Button>
+        <div className="flex min-h-screen flex-col items-center justify-center bg-[#fdf5e5]">
+            <Card className="w-[320px]">
+                <CardHeader>
+                    <CardTitle className="text-center text-xl">登入系統</CardTitle>
+                </CardHeader>
+                <CardContent className="flex flex-col items-center gap-4">
+                    {/* {error && <div className="h-[24px] text-center text-red-500">{error}</div>} */}
+                    
+                    <label className="w-full text-left font-semibold">帳號</label>
+                    <Input
+                        type="text"
+                        placeholder="輸入帳號"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        className="w-full rounded-md border border-gray-300 px-4 py-2"
+                    />
+                    
+                    <label className="w-full text-left font-semibold">密碼</label>
+                    <Input
+                        type="password"
+                        placeholder="輸入密碼"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="w-full rounded-md border border-gray-300 px-4 py-2"
+                    />
+                    <div className="h-[24px] text-center text-red-500">
+                        {error && <p>{error}</p>}
+                    </div>
+                </CardContent>
+                <CardFooter className="flex justify-center">
+                    <Button
+                        onClick={handleLogin}
+                        className="w-full rounded-md font-bold bg-[#657157] px-6 py-3 text-white hover:bg-[#48513e]"
+                    >
+                        登入
+                    </Button>
+                </CardFooter>
+            </Card>
         </div>
     )
 }

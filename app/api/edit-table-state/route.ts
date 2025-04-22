@@ -3,10 +3,10 @@ import db from '@/lib/db'
 
 export async function POST(req: Request) {
     try {
-        const { tableNumber, newState } = await req.json()
+        const { state, tableNumber } = await req.json()
 
         const query = 'UPDATE areas SET state = ? WHERE tableNumber = ?;'
-        const values = [newState, tableNumber]
+        const values = [state, tableNumber]
 
         await new Promise((resolve, reject) => {
             db.query(query, values, (err: any) => {

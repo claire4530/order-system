@@ -14,18 +14,17 @@ import {
 } from '@/components/ui/dialog'
 
 async function updateTableState(
-    tableNumber: string,
-    newState: string
+    newState: string, orderNumber: string, startTime: string, notify: string, remark: string, tableNumber: string
 ): Promise<{ success: boolean; message: string }> {
     const apiUrl: string = process.env.NEXT_PUBLIC_API_BASE_URL || ''
 
     try {
-        const response: Response = await fetch(`${apiUrl}/api/edit-table-state`, {
+        const response: Response = await fetch(`${apiUrl}/api/edit-table`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ tableNumber, newState }),
+            body: JSON.stringify({ newState, orderNumber, startTime, notify, remark, tableNumber }),
         })
 
         const result: any = await response.json()
@@ -74,7 +73,7 @@ const Clean: React.FC<{}> = () => {
             return
         }
 
-        const { success, message } = await updateTableState(inputTableNumber, '清潔中')
+        const { success, message } = await updateTableState('清潔中', "", "", "已處理", "", inputTableNumber )
         if (success) {
             setSuccessMessage('桌號已清潔')
         } else {
@@ -85,7 +84,9 @@ const Clean: React.FC<{}> = () => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline" onClick={() => { setSuccessMessage(null); setErrorMessage(null) }}>清潔桌子</Button>
+                <Button variant="outline" 
+                    className='text-base px-6 h-[50px] bg-[#969363] text-white font-semibold hover:text-white hover:bg-[#706E4A] transition-colors duration-200 ease-in-out'
+                    onClick={() => { setSuccessMessage(null); setErrorMessage(null) }}>清潔桌子</Button>
             </DialogTrigger>
             <DialogContent className="">
                 <DialogHeader className="grid gap-4">

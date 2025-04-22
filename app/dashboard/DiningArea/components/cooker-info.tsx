@@ -55,14 +55,31 @@ const CookerInfo: React.FC<CookerInfoProps> = ({
             <div className='text-black hover:bg-slate-100 grid'>
                 <div className='p-4'>火力狀況：{databaseState === "關閉" ? '/' : databaseFireStatus}</div>
                 <div className="flex gap-4 p-4 items-center rounded-md">
+                    {/* {numbers.map((num) => (
+                        <button
+                            key={num}
+                            className={cn(
+                                'h-6 w-6 border rounded-full border-[#657157] text-[#657157] hover:bg-[#657157] hover:text-white',
+                                fireStatus === num
+                            )}
+                            onClick={() => handleFireStateChange(num)}
+                        >
+                            {num}
+                        </button>
+                    ))} */}
                     {numbers.map((num) => (
                         <button
                             key={num}
                             className={cn(
-                                'h-6 w-6 border rounded-full border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white',
+                                'h-6 w-6 border rounded-full border-[#657157] text-[#657157] hover:bg-[#657157] hover:text-white',
                                 fireStatus === num
                             )}
                             onClick={() => handleFireStateChange(num)}
+                            disabled={!switchState} // 火力按鈕禁用條件
+                            style={{
+                                opacity: switchState ? 1 : 0.5, // 視覺效果，禁用按鈕時減少透明度
+                                pointerEvents: switchState ? 'auto' : 'none', // 禁止操作
+                            }}
                         >
                             {num}
                         </button>

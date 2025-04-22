@@ -35,7 +35,7 @@ const DeleteItems: React.FC<Item> = ({id}) => {
 
     return (
         <AlertDialog>
-            <AlertDialogTrigger>
+            <AlertDialogTrigger asChild>
                 <Button variant="outline" className="border border-red-500 text-red-500 hover:bg-red-500 hover:text-white">
                     刪除菜品
                 </Button>

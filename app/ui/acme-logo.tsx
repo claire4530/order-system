@@ -4,10 +4,10 @@ import { lusitana } from '@/app/ui/fonts'
 export default function Personalpage() {
     return (
         <div
-            className={`${lusitana.className} flex flex-row items-center leading-none text-white`}
+            className={`${lusitana.className} flex flex-row items-center leading-none text-white gap-2`}
         >
-            <UserCircleIcon className="h-17 w-17" />
-            <p className="text-[33px]">個人頁面</p>
+            <UserCircleIcon className="h-14 w-14" />
+            <p className="text-2xl mt-2 font-semibold">個人頁面</p>
         </div>
     )
 }

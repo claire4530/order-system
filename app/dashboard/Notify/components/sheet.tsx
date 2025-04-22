@@ -44,8 +44,8 @@ const SheetNotify = () => {
 
     return (
         <Sheet>
-            <SheetTrigger>
-                <Button className="">通知欄</Button>
+            <SheetTrigger asChild>
+                <Button className="bg-[#bf6c41] text-white font-semibold hover:bg-[#8d4a28] hover:text-white px-8">通知欄</Button>
             </SheetTrigger>
             <SheetContent>
                     <SheetTitle className="px-4 py-2 items-center">

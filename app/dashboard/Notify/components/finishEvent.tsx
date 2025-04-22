@@ -57,7 +57,7 @@ const handleConfirm = (tableNumber: string, id: number) => {
 const FinishEvent : React.FC<Area> = ({id, tableNumber}) => {
     return (
         <AlertDialog>
-            <AlertDialogTrigger>
+            <AlertDialogTrigger asChild>
                 <Button variant='default'>
                     處理完成
                 </Button>

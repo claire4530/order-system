@@ -57,7 +57,7 @@ export const columns: ColumnDef<Area>[] = [
                     className=""
                     variant="ghost"
                     onClick={() =>
-                        column.toggleSorting(column.getIsSorted() === 'desc')
+                        column.toggleSorting(column.getIsSorted() === 'asc')
                     }
                 >
                     警報時間
@@ -100,7 +100,9 @@ export const columns: ColumnDef<Area>[] = [
         header: '桌號',
         cell: ({ row }) => (
             <div className="flex items-center">
-                {row.getValue('tableNumber')}
+                {(row.getValue('tableNumber') as string).length > 10 
+                    ? (row.getValue('tableNumber') as string).slice(0, 10) + '...' 
+                    : row.getValue('tableNumber')}
             </div>
         ),
     },

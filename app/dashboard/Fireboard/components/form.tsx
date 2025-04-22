@@ -39,7 +39,7 @@ interface Areas {
     socketNumber: number
 }
 
-const fetchTables = async () => {
+const fetchTables = async (): Promise<Areas[]> => {
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL || ''
     const areas: Areas[] = await fetch(`${apiUrl}/api/areas`).then(res => res.json())
     return areas

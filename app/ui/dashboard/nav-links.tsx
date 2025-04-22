@@ -15,6 +15,7 @@ import {
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
+import { CalendarDays } from 'lucide-react';
 
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
@@ -31,7 +32,12 @@ const links = [
         icon: BuildingStorefrontIcon,
     },
     {
-        name: '查詢訂單',
+        name: '預約',
+        href: '/dashboard/Reserve',
+        icon: CalendarDays,
+    },
+    {
+        name: '歷史訂單',
         href: '/dashboard/OrderTracking',
         icon: ClipboardDocumentListIcon,
     },
@@ -58,15 +64,15 @@ export default function NavLinks() {
                         key={link.name}
                         href={link.href}
                         className={clsx(
-                            'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3',
+                            'flex h-[48px] grow items-center justify-center gap-2 rounded-md p-3 text-sm font-medium hover:bg-[#71503e] hover:text-white md:flex-none md:justify-start md:p-2 md:px-3',
                             {
-                                'bg-sky-100 text-blue-600':
-                                    pathname === link.href,
+                                'bg-[#f5efe4]': pathname !== link.href,  // 僅當 pathname 不等於 link.href 時使用 bg-gray-50
+                                'bg-[#71503e] text-white': pathname === link.href,
                             }
                         )}
                     >
                         <LinkIcon className="w-6" />
-                        <p className="hidden md:block">{link.name}</p>
+                        <p className="font-semibold hidden md:block">{link.name}</p>
                     </Link>
                 )
             })}

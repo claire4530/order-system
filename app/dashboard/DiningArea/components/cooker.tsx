@@ -35,10 +35,18 @@ async function updateCookerState(
     })
 }
 
+// const payload = {
+//     deviceMacaddress : "84:F7:03:15:66:E8",
+//     Fire : "2",
+//     Time : "30",
+//     Status : "C"
+// }
+
 async function updateCookerFireState(
     cookerNumber: string,
     newfireStatus: number
 ): Promise<void> {
+    // console.log(payload)
     const apiUrl: string = process.env.NEXT_PUBLIC_API_BASE_URL || ''
 
     const response: Response = await fetch(
@@ -51,7 +59,10 @@ async function updateCookerFireState(
             body: JSON.stringify({ cookerNumber, newfireStatus }),
         }
     )
+    // console.log(payload)
 }
+
+
 
 const Cooker: React.FC<CookerProps> = ({
     cookerNumber,
@@ -69,16 +80,53 @@ const Cooker: React.FC<CookerProps> = ({
     const [powerState, setPowerState] = useState(state !== '關閉')
     const [fireState, setFireState] = useState(fireStatus)
 
-    const handlePowerStateChange = (newState: boolean) => {
-        setPowerState(newState)
-        updateCookerState(cookerNumber, newState ? '開啟' : '關閉')
+
+    interface Payload {
+        deviceMacaddress: string
+        Fire: string
+        Time: string
+        Status: string
+    }
+
+    // const payload: Payload = {
+    //     deviceMacaddress: cookerNumber,
+    //     Fire: fireState.toString(),
+    //     Time: "0",
+    //     Status: "C"
+    // }
+
+    async function updateCookerFireState111(fireState: number): Promise<void> {
+        const payload: Payload = {
+            deviceMacaddress: cookerNumber,
+            Fire: fireState.toString(), // 使用參數而不是狀態
+            Time: "10",
+            Status: "C"
+        };
+        const apiUrl: string = process.env.COOKERURL || ''
+
+        const response: Response = await fetch('http://140.128.102.72:50515/device_detail_set_IHFirepower2', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload)
+        })
+        console.log(response)
     }
 
     const handleFireStateChange = (newFireState: number) => {
-        setFireState(newFireState)
-        updateCookerFireState(cookerNumber, newFireState)
-    }
+        setFireState(newFireState); // 更新本地狀態
+        updateCookerFireState(cookerNumber, newFireState); // 更新資料庫狀態
+        updateCookerFireState111(newFireState); // 傳遞最新的火力值
+    };
 
+    const handlePowerStateChange = (newState: boolean) => {
+        setPowerState(newState)
+        updateCookerState(cookerNumber, newState ? '開啟' : '關閉')
+        if (!newState) {
+            updateCookerFireState111(0);
+        }
+    }
     return (
         <div className="flex items-center justify-between gap-2 text-sm ">
             <div className="flex items-center gap-2">

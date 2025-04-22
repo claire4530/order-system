@@ -22,7 +22,7 @@ const AddAreas = () => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline" className="mr-2 border border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white">
+                <Button variant="outline" className="mr-2 bg-[#969363] text-white font-semibold hover:text-white hover:bg-[#706E4A]">
                     新增分類
                 </Button>
             </DialogTrigger>

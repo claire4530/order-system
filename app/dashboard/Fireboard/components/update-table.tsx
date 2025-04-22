@@ -50,7 +50,7 @@ const UpdateTable = ({ initialAreas }: { initialAreas: Payment[] }) => {
     }, []);
 
     return (
-        <Tabs defaultValue="account" className="pt-10">
+        <Tabs defaultValue="area-46" className="pt-10">
             {/* <ScrollArea className="h-[80px] w-[1180px] whitespace-nowrap flex space-x-2 overflow-x-auto"> */}
                 <TabsList className="h-full grid grid-cols-5">
                     {Array.isArray(areas) && areas.map((area, index: number) => (

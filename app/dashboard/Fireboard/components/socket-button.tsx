@@ -24,7 +24,7 @@ const SocketButton: React.FC<Sockets> = ({
 
     return (
         <Dialog>
-            <DialogTrigger>
+            <DialogTrigger asChild>
                 <Button variant="ghost" className="rounded-lg w-30 h-40 flex flex-col" >
                     <Image src={TVImage} alt="插座" width={100} />
                     <div className="pt-2 font-bold text-base">

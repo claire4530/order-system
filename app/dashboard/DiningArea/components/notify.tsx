@@ -65,20 +65,16 @@ const handleConfirm = (tableNumber: string, areas_id: number) => {
     updateState('待處理', tableNumber)
 }
 
-const notify : React.FC<Area> = ({tableNumber, areas_id, state}) => {
+const Notify : React.FC<Area> = ({tableNumber, areas_id, state}) => {
 
     return (
         <AlertDialog>
-            <AlertDialogTrigger>
+            <AlertDialogTrigger asChild>
                 <div>
                     {state === '已處理' ? (
-                        <Button variant="ghost" className="h-14 w-14 rounded-full" >
-                            <BellIcon className="flex-end h-6 w-6" />
-                        </Button>
+                        <BellIcon className=" flex-end h-8 w-8 transition-transform transform hover:-translate-y-1 duration-200 ease-in-out" />
                     ) : (
-                        <Button className="bg-red-500 h-14 w-14 rounded-full hover:bg-red-500" >
-                            <BellAlertIcon className="flex-end h-6 w-6" />
-                        </Button>
+                        <BellAlertIcon className="flex-end h-8 w-8 transition-transform transform hover:-translate-y-1 duration-200 ease-in-out" />
                     )}
                 </div>
             </AlertDialogTrigger>
@@ -119,4 +115,4 @@ const notify : React.FC<Area> = ({tableNumber, areas_id, state}) => {
     )
 }
 
-export default notify
+export default Notify
